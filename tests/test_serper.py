@@ -81,9 +81,8 @@ class TestSearchSerper:
     def test_knowledge_graph_ignored(self, serper_response_ok):
         with patch("httpx.post", return_value=make_response(serper_response_ok)):
             results = search_serper("python", 5, None, None, "key123")
-        # Knowledge graph should not appear in results
-        for r in results:
-            assert r.get("url") != ""  # all results come from organic only
+        # Only organic results — knowledge graph must not add extra entries
+        assert len(results) == 2
 
     def test_missing_fields_handled_gracefully(self):
         data = {"organic": [{"title": "Only Title"}]}

@@ -54,8 +54,7 @@ class TestSearchBrave:
     def test_language_param_passed(self, brave_response_ok):
         with patch("httpx.get", return_value=make_response(brave_response_ok)) as mock_get:
             search_brave("query", 5, "it", None, "key123")
-            call_kwargs = mock_get.call_args
-            params = call_kwargs[1]["params"] if "params" in call_kwargs[1] else call_kwargs[0][1]
+            params = mock_get.call_args[1]["params"]
             assert params.get("search_lang") == "it"
 
     def test_country_param_passed(self, brave_response_ok):

@@ -81,12 +81,3 @@ class TestFormatResults:
         ]
         output = format_results("test", results)
         assert not output.endswith("\n")
-
-
-class TestMaxResults:
-    def test_max_results_capped_at_100(self):
-        # max_results > 100 should be capped at 100 in main(), verify via direct call
-        # We test the cap logic in run.py by checking min() behaviour
-        assert min(200, 100) == 100
-        assert min(99, 100) == 99
-        assert min(100, 100) == 100

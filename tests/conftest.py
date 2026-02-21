@@ -1,4 +1,5 @@
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -8,40 +9,40 @@ import pytest
 ROOT = Path(__file__).parent.parent
 
 
-def make_input(query="test query", max_results=5, language=None, country=None, extra_args=None):
-    args = {"query": query, "max_results": max_results}
-    if language:
-        args["language"] = language
-    if country:
-        args["country"] = country
-    if extra_args:
-        args.update(extra_args)
-    return {
-        "args": args,
-        "session": "test-session",
-        "workspace": "/tmp/test-workspace",
-        "session_secrets": {},
-        "plan_outputs": [],
-    }
+@pytest.fixture
+def make_input():
+    def _make(query="test query", max_results=5, language=None, country=None):
+        args = {"query": query, "max_results": max_results}
+        if language:
+            args["language"] = language
+        if country:
+            args["country"] = country
+        return {
+            "args": args,
+            "session": "test-session",
+            "workspace": "/tmp/test-workspace",
+            "session_secrets": {},
+            "plan_outputs": [],
+        }
+    return _make
 
 
-def run_skill(input_data, env=None):
-    """Run run.py as subprocess with the given input dict and env vars."""
-    import os
-
-    process_env = {"PATH": os.environ.get("PATH", "")}
-    if env:
-        process_env.update(env)
-
-    result = subprocess.run(
-        [sys.executable, str(ROOT / "run.py")],
-        input=json.dumps(input_data),
-        capture_output=True,
-        text=True,
-        env=process_env,
-        timeout=10,
-    )
-    return result
+@pytest.fixture
+def run_skill():
+    """Run run.py as a subprocess with controlled stdin and env."""
+    def _run(input_data, env=None):
+        process_env = {"PATH": os.environ.get("PATH", "")}
+        if env:
+            process_env.update(env)
+        return subprocess.run(
+            [sys.executable, str(ROOT / "run.py")],
+            input=json.dumps(input_data),
+            capture_output=True,
+            text=True,
+            env=process_env,
+            timeout=10,
+        )
+    return _run
 
 
 @pytest.fixture
