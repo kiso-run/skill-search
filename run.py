@@ -58,7 +58,7 @@ def main():
 
 
 def load_config() -> dict:
-    """Load config.toml from the skill directory (where run.py lives)."""
+    """Load config.toml from the tool directory (where run.py lives)."""
     config_path = Path(__file__).parent / "config.toml"
     if not config_path.exists():
         return {"backend": "brave"}

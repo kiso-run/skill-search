@@ -1,14 +1,14 @@
-# skill-search
+# tool-search
 
-Web search skill for [kiso](https://github.com/kiso-run/core). Supports [Brave Search](https://brave.com/search/api/) and [Serper](https://serper.dev/) as backends.
+Web search tool for [kiso](https://github.com/kiso-run/core). Supports [Brave Search](https://brave.com/search/api/) and [Serper](https://serper.dev/) as backends.
 
 ## Installation
 
 ```bash
-kiso skill install search
+kiso tool install search
 ```
 
-This clones the repo to `~/.kiso/skills/search/`, runs `uv sync`, and copies `config.example.toml` → `config.toml`.
+This clones the repo to `~/.kiso/tools/search/`, runs `uv sync`, and copies `config.example.toml` → `config.toml`.
 
 ## Configuration
 
@@ -26,7 +26,7 @@ kiso env reload
 
 ### 3. Choose a backend (optional)
 
-The default backend is Brave. To switch to Serper, edit `~/.kiso/skills/search/config.toml`:
+The default backend is Brave. To switch to Serper, edit `~/.kiso/tools/search/config.toml`:
 
 ```toml
 backend = "serper"
@@ -34,9 +34,9 @@ backend = "serper"
 
 ## How it works
 
-1. The planner decides a web search is needed and emits a `skill` task with a `query` argument.
+1. The planner decides a web search is needed and emits a `tool` task with a `query` argument.
 2. Kiso runs `run.py` as a subprocess, passing the arguments as JSON on stdin.
-3. The skill calls the configured search API and formats the results as plain numbered text.
+3. The tool calls the configured search API and formats the results as plain numbered text.
 4. The reviewer evaluates the output; subsequent tasks (msg, exec) can reference the results.
 
 ## Backends

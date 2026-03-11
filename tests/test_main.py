@@ -12,22 +12,22 @@ import run
 
 
 class TestMainMissingApiKey:
-    def test_subprocess_exits_1(self, run_skill, make_input):
-        result = run_skill(make_input("test query"), env={})
+    def test_subprocess_exits_1(self, run_tool, make_input):
+        result = run_tool(make_input("test query"), env={})
         assert result.returncode == 1
 
-    def test_stdout_user_message(self, run_skill, make_input):
-        result = run_skill(make_input("test query"), env={})
+    def test_stdout_user_message(self, run_tool, make_input):
+        result = run_tool(make_input("test query"), env={})
         assert "Search failed: API key not configured." in result.stdout
 
-    def test_stderr_debug_message(self, run_skill, make_input):
-        result = run_skill(make_input("test query"), env={})
+    def test_stderr_debug_message(self, run_tool, make_input):
+        result = run_tool(make_input("test query"), env={})
         assert "KISO_SKILL_SEARCH_API_KEY is not set" in result.stderr
 
-    def test_api_key_never_echoed(self, run_skill, make_input):
+    def test_api_key_never_echoed(self, run_tool, make_input):
         """The key itself must never appear in stdout or stderr."""
         secret = "super-secret-key-12345"
-        result = run_skill(
+        result = run_tool(
             make_input("test query"),
             env={"KISO_SKILL_SEARCH_API_KEY": secret},
         )

@@ -1,10 +1,10 @@
 [kiso]
-type = "skill"
+type = "tool"
 name = "search"
 version = "0.1.0"
 description = "Web search via Brave or Serper"
 
-[kiso.skill]
+[kiso.tool]
 summary = "Search the web and return relevant results"
 usage_guide = """\
 Search the web for current information, documentation, or facts. \
@@ -13,13 +13,13 @@ increase for comprehensive coverage (up to 100). \
 Pass language/country when the user needs localized results \
 (e.g. language='it', country='IT'). Default is global/English."""
 
-[kiso.skill.args]
+[kiso.tool.args]
 query = { type = "string", required = true, description = "search query" }
 max_results = { type = "int", required = false, default = 5, description = "number of results (1-100)" }
 language = { type = "string", required = false, description = "language code, e.g. 'it', 'en', 'ja'" }
 country = { type = "string", required = false, description = "country code, e.g. 'IT', 'US', 'JP'" }
 
-[kiso.skill.env]
+[kiso.tool.env]
 api_key = { required = true }   # → KISO_SKILL_SEARCH_API_KEY
 
 [kiso.deps]

@@ -28,7 +28,7 @@ def make_input():
 
 
 @pytest.fixture
-def run_skill():
+def run_tool():
     """Run run.py as a subprocess with controlled stdin and env."""
     def _run(input_data, env=None):
         process_env = {"PATH": os.environ.get("PATH", "")}
