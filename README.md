@@ -1,14 +1,14 @@
-# tool-search
+# tool-websearch
 
 Web search tool for [kiso](https://github.com/kiso-run/core). Supports [Brave Search](https://brave.com/search/api/) and [Serper](https://serper.dev/) as backends.
 
 ## Installation
 
 ```bash
-kiso tool install search
+kiso tool install websearch
 ```
 
-This clones the repo to `~/.kiso/tools/search/`, runs `uv sync`, and copies `config.example.toml` → `config.toml`.
+This clones the repo to `~/.kiso/tools/websearch/`, runs `uv sync`, and copies `config.example.toml` → `config.toml`.
 
 ## Configuration
 
@@ -20,13 +20,13 @@ This clones the repo to `~/.kiso/tools/search/`, runs `uv sync`, and copies `con
 ### 2. Set the key
 
 ```bash
-kiso env set KISO_SKILL_SEARCH_API_KEY "your-key"
+kiso env set KISO_TOOL_WEBSEARCH_API_KEY "your-key"
 kiso env reload
 ```
 
 ### 3. Choose a backend (optional)
 
-The default backend is Brave. To switch to Serper, edit `~/.kiso/tools/search/config.toml`:
+The default backend is Brave. To switch to Serper, edit `~/.kiso/tools/websearch/config.toml`:
 
 ```toml
 backend = "serper"

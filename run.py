@@ -27,9 +27,9 @@ def main():
     language = args.get("language")
     country = args.get("country")
 
-    api_key = os.environ.get("KISO_SKILL_SEARCH_API_KEY", "")
+    api_key = os.environ.get("KISO_TOOL_WEBSEARCH_API_KEY", "")
     if not api_key:
-        print("Search failed: KISO_SKILL_SEARCH_API_KEY is not set", file=sys.stderr)
+        print("Search failed: KISO_TOOL_WEBSEARCH_API_KEY is not set", file=sys.stderr)
         print("Search failed: API key not configured.")
         sys.exit(1)
 

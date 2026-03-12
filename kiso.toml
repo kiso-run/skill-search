@@ -1,6 +1,6 @@
 [kiso]
 type = "tool"
-name = "search"
+name = "websearch"
 version = "0.1.0"
 description = "Web search via Brave or Serper"
 
@@ -20,7 +20,7 @@ language = { type = "string", required = false, description = "language code, e.
 country = { type = "string", required = false, description = "country code, e.g. 'IT', 'US', 'JP'" }
 
 [kiso.tool.env]
-api_key = { required = true }   # → KISO_SKILL_SEARCH_API_KEY
+api_key = { required = true }   # → KISO_TOOL_WEBSEARCH_API_KEY
 
 [kiso.deps]
 python = ">=3.11"

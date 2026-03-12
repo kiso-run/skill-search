@@ -22,14 +22,14 @@ class TestMainMissingApiKey:
 
     def test_stderr_debug_message(self, run_tool, make_input):
         result = run_tool(make_input("test query"), env={})
-        assert "KISO_SKILL_SEARCH_API_KEY is not set" in result.stderr
+        assert "KISO_TOOL_WEBSEARCH_API_KEY is not set" in result.stderr
 
     def test_api_key_never_echoed(self, run_tool, make_input):
         """The key itself must never appear in stdout or stderr."""
         secret = "super-secret-key-12345"
         result = run_tool(
             make_input("test query"),
-            env={"KISO_SKILL_SEARCH_API_KEY": secret},
+            env={"KISO_TOOL_WEBSEARCH_API_KEY": secret},
         )
         assert secret not in result.stdout
         assert secret not in result.stderr
@@ -46,7 +46,7 @@ class TestMainUnknownBackend:
 
     def test_exits_1(self, capsys):
         with patch("sys.stdin", io.StringIO(self._stdin)), \
-             patch.dict(os.environ, {"KISO_SKILL_SEARCH_API_KEY": "fake-key"}), \
+             patch.dict(os.environ, {"KISO_TOOL_WEBSEARCH_API_KEY": "fake-key"}), \
              patch("run.load_config", return_value={"backend": "bing"}):
             with pytest.raises(SystemExit) as exc_info:
                 run.main()
@@ -54,7 +54,7 @@ class TestMainUnknownBackend:
 
     def test_stdout_names_the_bad_backend(self, capsys):
         with patch("sys.stdin", io.StringIO(self._stdin)), \
-             patch.dict(os.environ, {"KISO_SKILL_SEARCH_API_KEY": "fake-key"}), \
+             patch.dict(os.environ, {"KISO_TOOL_WEBSEARCH_API_KEY": "fake-key"}), \
              patch("run.load_config", return_value={"backend": "bing"}):
             with pytest.raises(SystemExit):
                 run.main()
@@ -78,7 +78,7 @@ class TestMainMaxResultsCap:
             "plan_outputs": [],
         })
         with patch("sys.stdin", io.StringIO(stdin)), \
-             patch.dict(os.environ, {"KISO_SKILL_SEARCH_API_KEY": "fake-key"}), \
+             patch.dict(os.environ, {"KISO_TOOL_WEBSEARCH_API_KEY": "fake-key"}), \
              patch("run.load_config", return_value={"backend": "brave"}), \
              patch("httpx.get", return_value=self._mock_brave_response()) as mock_get:
             run.main()
@@ -93,7 +93,7 @@ class TestMainMaxResultsCap:
             "plan_outputs": [],
         })
         with patch("sys.stdin", io.StringIO(stdin)), \
-             patch.dict(os.environ, {"KISO_SKILL_SEARCH_API_KEY": "fake-key"}), \
+             patch.dict(os.environ, {"KISO_TOOL_WEBSEARCH_API_KEY": "fake-key"}), \
              patch("run.load_config", return_value={"backend": "brave"}), \
              patch("httpx.get", return_value=self._mock_brave_response()) as mock_get:
             run.main()
@@ -108,7 +108,7 @@ class TestMainMaxResultsCap:
             "plan_outputs": [],
         })
         with patch("sys.stdin", io.StringIO(stdin)), \
-             patch.dict(os.environ, {"KISO_SKILL_SEARCH_API_KEY": "fake-key"}), \
+             patch.dict(os.environ, {"KISO_TOOL_WEBSEARCH_API_KEY": "fake-key"}), \
              patch("run.load_config", return_value={"backend": "brave"}), \
              patch("httpx.get", return_value=self._mock_brave_response()) as mock_get:
             run.main()
